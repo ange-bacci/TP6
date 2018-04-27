@@ -15,12 +15,12 @@
 #include <iomanip>   // setw()
 #include "Duree.h"
 
-using namespace nsUtil
+using namespace nsUtil;
 using namespace std;
 
 #define DUREE nsUtil::Duree
 
-DUREE::Duree  (const ULLong_t duree /* = ULLong_t (0) */) 
+DUREE::Duree  (const ULLong_t duree /* = ULLong_t (0) */)
     : myDuree (duree) 
 { 
 	normaliser ();
@@ -30,7 +30,7 @@ DUREE::Duree  (const ULLong_t duree /* = ULLong_t (0) */)
 	
 } // Duree()
 
-DUREE::Duree  (const Duree & duree) 
+DUREE::Duree  (const Duree & duree)
     : myDuree (duree.getDuree ()) 
 { 
 	normaliser ();
@@ -52,21 +52,21 @@ void DUREE::normaliser (void)
 {
 	myDays    =  myDuree / 86400;
 	myHours   = (myDuree % 86400) / 3600;
-	myMintes  = (myDuree % 3600) / 60;
+    myMinutes  = (myDuree % 3600) / 60;
 	mySeconds =  myDuree % 60;
 	
 } // normaliser()
 
-ULLong_t getDuree (void) const { return myDuree; }
+ULLong_t DUREE::getDuree (void) const { return myDuree; }
 
 void DUREE::display (void) const
 {
 	cout << '[' 
 	     << setw (10) << myDays    << ':' 
 	     << setfill ('0')
-		 << setw (2)  << myHours   << " heure(s)
-		 << setw (2)  << myMinutes << " minute(s)
-		 << setw (2)  << mySeconds << " seconde(s)
+         << setw (2)  << myHours   << " heure(s)"
+         << setw (2)  << myMinutes << " minute(s)"
+         << setw (2)  << mySeconds << " seconde(s)"
 		 << setfill (' ')
 		 << ']';
 		 
@@ -85,37 +85,37 @@ void DUREE::decr (const ULLong_t delta /* = ULLong_t (0) */)
 	
 } // decr()
 
-DUREE DUREE::operator + (const Dure & d) const
+DUREE DUREE::operator + (const Duree & d) const
 {
 	return myDuree + d.myDuree;
 	
 } // operator +()
 
-DUREE DUREE::operator - (const Dure & d) const
+DUREE DUREE::operator - (const Duree & d) const
 {
-	return myDuree - (myDuree &lt; d.myDuree ? myDuree : d.myDuree);
+    return myDuree - (myDuree < d.myDuree ? myDuree : d.myDuree);
 	
 } // operator -()
 
-DUREE DUREE::operator > (const Dure & d) const
+bool DUREE::operator > (const Duree & d) const
 {
 	return myDuree > d.myDuree;
 	
 } // operator >()
 
-DUREE DUREE::operator < (const Dure & d) const
+bool DUREE::operator < (const Duree & d) const
 {
 	return myDuree < d.myDuree;
 	
 } // operator <()
 
-DUREE DUREE::operator != (const Dure & d) const
+bool DUREE::operator != (const Duree & d) const
 {
 	return myDuree != d.myDuree;
 	
 } // operator !=()
 
-DUREE DUREE::operator == (const Dure & d) const
+bool DUREE::operator == (const Duree & d) const
 {
 	return myDuree == d.myDuree;
 	
