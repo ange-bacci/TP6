@@ -16,32 +16,43 @@
  #ifndef __DUREE_H__
  #define __DUREE_H__
  
+#include "editable.hpp"
+
 namespace nsUtil
 {
     typedef unsigned long long ULLong_t;
 
-	class Duree
+    class Duree : public Editable
 	{
 	  private :
-		ULLong_t       myDuree;
+        ULLong_t       myDuree;
 		short unsigned mySeconds;
 		short unsigned myMinutes;
 		short unsigned myHours;
-		ULLong_t       myDays;
+        ULLong_t       myDays;
 
 		void normaliser (void);
 
 	  public :
-		Duree  (const ULLong_t duree = ULLong_t (0));
-		Duree  (const Duree & duree);
+        explicit Duree  (const ULLong_t duree = ULLong_t (0));
+        Duree  (const Duree & duree);
 		~Duree (void);
 
-		ULLong_t getDuree (void) const;
+        ULLong_t getDuree (void) const;
 
-		void display (void) const;
+        virtual void display(std::ostream &os) const;
 
-		void incr (const ULLong_t delta = ULLong_t (0));
-		void decr (const ULLong_t delta = ULLong_t (0));
+        Duree & operator ++ (void) noexcept;
+        Duree   operator ++ (int)  noexcept;
+
+        Duree & operator -- (void) noexcept;
+        Duree   operator -- (int)  noexcept;
+
+        Duree & operator += (Duree &) noexcept;
+        Duree & operator -= (Duree &) noexcept;
+
+        Duree & operator += (int &) noexcept;
+        Duree & operator -= (int &) noexcept;
 		
 		Duree operator +  (const Duree & d) const;
 		Duree operator -  (const Duree & d) const;

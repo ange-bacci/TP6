@@ -41,9 +41,9 @@ CEXC::~CException (void) noexcept {}
 
 const char* CEXC::what (void) const noexcept  { return myLibelle.c_str(); }
 
-void CEXC::display (void) const
+void CEXC::display (std::ostream &os) const
 { 
-    cout << "Exception : " << myLibelle << '\n'
+    os << "Exception : " << myLibelle << '\n'
          << "Code      : " << myCodErr  << endl;
 
 } // Afficher()

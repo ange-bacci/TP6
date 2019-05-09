@@ -20,7 +20,8 @@ namespace nsUtil
           KNoError     = 0,
 
           KExcStd      = 254,
-          KExcInconnue = 255 
+          KExcInconnue = 255,
+          KExcOpInterdite = 201
          };
 
 } // namespace nsUtil

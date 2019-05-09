@@ -17,11 +17,12 @@
 #include <string>
 #include <exception>
 
+#include "editable.hpp"
 #include "CstCodErr.h"
 
 namespace nsUtil
 {
-    class CException : public std::exception
+    class CException : public std::exception, public Editable
     {
         std::string myLibelle;
         unsigned    myCodErr;
@@ -36,7 +37,7 @@ namespace nsUtil
 
         virtual const char* what       (void) const           noexcept;
 
-        void display (void) const;
+        void display (std::ostream &os) const;
 
     }; // CException
     

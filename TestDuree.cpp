@@ -20,6 +20,7 @@
 #include "CException.h"    // de l'exercice précédent
 #include "CstCodErr.h"
 #include "Duree.h"
+#include "editable.hpp"
 
 using namespace std;
 using namespace rel_ops;
@@ -27,11 +28,12 @@ using namespace nsUtil;    // CException
 
 namespace
 {
+
     void testDuree_01 (void)
     {
-        DureeEditable d1 (3661);
-        DureeEditable d2 (2661);
-        DureeEditable d3 (3661);
+        Duree d1 (3661);
+        Duree d2 (2661);
+        Duree d3 (3661);
 
         assert (! (d1 < d2));
         assert (  (d2 < d1));
@@ -56,7 +58,7 @@ namespace
 
     void TestDuree_02 (void)
     {
-        DureeEditable d1 (3661);
+        Duree d1 = Duree (3661);
         {
             ostringstream oss;
             oss << d1;
@@ -119,11 +121,11 @@ namespace
         }
         {
             ostringstream oss;
-            oss << (d1 += DureeEditable (3));
+            oss << (d1 += Duree (3));
             assert (oss.str() == "[     0:01:01:06]");
         }
         {
-            d1.setDuree (0);
+            d1 = Duree();
             ostringstream oss;
             oss << d1;
             assert (oss.str() == "[     0:00:00:00]");
@@ -145,7 +147,7 @@ namespace
         catch (const CException & e) { isCaught = true; }
         assert (isCaught);
 
-        IsCaught = false;
+        isCaught = false;
         try { d1 -= 1; }
         catch (const CException & e) { isCaught = true; }
         assert (isCaught);
@@ -165,13 +167,11 @@ int main (int argc, char * argv [])
     {
         cerr << "Nombre d'arguments invalide\n"
                 "Usage : TestCDuree\n";
-        return KErrArg;
+        return -1;
     }
     try
     {
         testDuree_01 ();
-        testDuree_02 ();
-        testDuree_03 ();
         cout << "Fin normale\n";
 
         return KNoExc;
@@ -179,7 +179,7 @@ int main (int argc, char * argv [])
     catch (const CException & e)
     {
         cerr << e << '\n';
-        return e.GetCodErr();
+        return e.getCodErr();
     }
     catch (const exception & e)
     {
